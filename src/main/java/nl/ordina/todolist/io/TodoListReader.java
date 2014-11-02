@@ -1,7 +1,9 @@
 package nl.ordina.todolist.io;
 
+import nl.ordina.todolist.config.MyTodoList;
 import nl.ordina.todolist.model.TodoList;
 
+import javax.inject.Inject;
 import java.io.BufferedReader;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -12,11 +14,13 @@ import java.io.InputStreamReader;
  */
 public class TodoListReader {
 
-    public static final String TODO_FILE = "/Users/ivonet/dev/junk/todos.txt";
+    @Inject
+    @MyTodoList
+    private String todolist;
 
     public TodoList read() {
 
-        try (final InputStreamReader in = new InputStreamReader(new FileInputStream(TODO_FILE));
+        try (final InputStreamReader in = new InputStreamReader(new FileInputStream(todolist));
              final BufferedReader br = new BufferedReader(in)) {
 
             final TodoList todoList = new TodoList();
