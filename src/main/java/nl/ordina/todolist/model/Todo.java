@@ -10,13 +10,15 @@ public class Todo {
 
 
     public Todo() {
-        this.todo = "";
-        this.done = false;
+        this("", false);
     }
 
     public Todo(final String todo) {
+        this(todo, false);
+    }
+    public Todo(final String todo, final boolean done) {
         this.todo = todo;
-        this.done = false;
+        this.done = done;
     }
 
     public void setTodo(final String todo) {

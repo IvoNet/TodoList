@@ -22,7 +22,12 @@ public class TodoList {
 
 
     public void add(final String todo) {
-        todos.add(new Todo(todo));
+        this.todos.add(new Todo(todo));
+    }
+
+    public void add(final String todo, final boolean done) {
+        this.todos.add(new Todo(todo, done));
+
     }
 
     public List<Todo> getTodos() {
