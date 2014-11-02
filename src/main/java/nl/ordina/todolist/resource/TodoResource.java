@@ -14,7 +14,6 @@ import javax.ws.rs.Produces;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
- *
  * @author Ivo Woltring
  */
 @Stateless
@@ -38,10 +37,9 @@ public class TodoResource {
         return this.todoList;
     }
 
-    //Just for test
     @PostConstruct
     public void postConstruct() {
-        this.todoList.add("prepare this demo", true);
+        this.todoList.add("Prepare this demo", true);
         this.todoList.add("Make a demo");
         this.todoList.add("live coding example");
         this.todoList.add("Tell the people that I don't know why it does not work");

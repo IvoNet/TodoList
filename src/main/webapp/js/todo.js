@@ -1,8 +1,7 @@
-var app = angular.module("app", ['ngResource', 'ngRoute']);
-//var app = angular.module("app");
+var app = angular.module("app", ['ngResource']);
 
 
-app.factory('ToDos', ['$resource', function ($resource) {
+app.factory('todoService', ['$resource', function ($resource) {
     return $resource('resources/todos', {}, {
                          query: {
                              method: 'GET',
@@ -19,8 +18,8 @@ app.factory('ToDos', ['$resource', function ($resource) {
 }]);
 
 
-app.controller("TodoController", ['$scope', 'ToDos', '$http', function ($scope, ToDos, $http) {
-    $scope.data = ToDos.query();
+app.controller("TodoController", ['$scope', 'todoService', '$filter', function ($scope, todoService, $filter) {
+    $scope.data = todoService.query();
 
     $scope.totalTodos = function () {
         if ($scope.data.todos !== undefined) {
@@ -32,15 +31,16 @@ app.controller("TodoController", ['$scope', 'ToDos', '$http', function ($scope, 
         if ($scope.todoFormData !== "") {
             $scope.data.todos.push({'todo': $scope.todoFormData, 'done': false});
             $scope.todoFormData = "";
-            //ToDos.save($scope.data);
         }
+    };
+
+    $scope.clearCompleted = function () {
+        $scope.data.todos = $filter('filter')($scope.data.todos, {done : false})
     };
 
     $scope.$watch('data', function () {
         console.log('changed');
-        ToDos.save($scope.data);
+        todoService.save($scope.data);
     }, true);
 
 }]);
-
-
