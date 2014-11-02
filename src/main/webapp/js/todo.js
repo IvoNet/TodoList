@@ -10,9 +10,9 @@ app.factory('ToDos', ['$resource', function ($resource) {
                              isArray: false
                          },
                          save: {
-                             method: 'POST',
-                             headers: {'Content-Type': 'application/json'},
-                             isArray: false
+                             method: 'POST'
+                             //headers: {'Content-Type': 'application/json'},
+                             //isArray: false
                          }
                      }
     )
@@ -20,9 +20,7 @@ app.factory('ToDos', ['$resource', function ($resource) {
 
 
 app.controller("TodoController", ['$scope', 'ToDos', '$http', function ($scope, ToDos, $http) {
-    //$scope.url = 'http://localhost:8080/TodoList/resources/todos';
     $scope.data = ToDos.query();
-    //restServices.get('http://localhost:8080/TodoList/resources/todos');
 
     $scope.totalTodos = function () {
         if ($scope.data.todos !== undefined) {
@@ -34,21 +32,14 @@ app.controller("TodoController", ['$scope', 'ToDos', '$http', function ($scope, 
         if ($scope.todoFormData !== "") {
             $scope.data.todos.push({'todo': $scope.todoFormData, 'done': false});
             $scope.todoFormData = "";
+            //ToDos.save($scope.data);
         }
     };
 
-    $scope.$watchCollection('data.todos', function (newValue, oldValue) {
-        if (newValue !== oldValue) {
-            console.log("changed");
-            //$http({
-            //  method: 'POST',
-            //  data: $scope.data,
-            //  url:'resources/todos',
-            //  headers: {'Content-Type':'application/json'}
-            //});
-            ToDos.save($scope.data);
-        }
-    });
+    $scope.$watch('data', function () {
+        console.log('changed');
+        ToDos.save($scope.data);
+    }, true);
 
 }]);
 
