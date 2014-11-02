@@ -1,9 +1,5 @@
 package nl.ordina.todolist.model;
 
-/**
- *
- * @author Ivo Woltring
- */
 public class Todo {
     private  String todo;
     private boolean done;
