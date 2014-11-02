@@ -1,4 +1,4 @@
-package nl.ordina.todolist;
+package nl.ordina.todolist.config;
 
 import javax.ws.rs.ApplicationPath;
 import javax.ws.rs.core.Application;
